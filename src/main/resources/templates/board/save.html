@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <style>
+        #boardContents {
+            resize: none;
+        }
+
+        #boardCTS {
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+
+        .mybtn {
+            float: right;
+        }
+
+        .leftalign {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <div class="container mx-auto bg-white py-8 border-t border-gray-400">
+        <!-- action속성: 목적지(서버주소), method속성: http request method(get, post) -->
+
+        <div id="boardCTS">
+            <form action="/board/save" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="email" th:value="${email}">
+                <strong>작성자</strong> <input class="leftalign" type="text" name="boardWriter" th:value="${writer}" readonly="readonly"> <br><br>
+                <strong>제목</strong> &nbsp;&nbsp;&nbsp;<input class="leftalign" type="text" name="boardTitle"
+                                                             placeholder="제목"> <br><br>
+                <strong>내용</strong> &nbsp;&nbsp;&nbsp;<textarea class="centeralign" name="boardContents"
+                                                                id="boardContents" cols="100" rows="5" maxlength="100"
+                                                                placeholder="  내용을 입력해주세요."></textarea> <br><br>
+                <strong>이미지</strong> <input type="file" name="boardFile" accept="image/png, image/gif, image/jpeg"> <br><br>
+                <div class="mybtn">
+                    <!--        <button onclick="listReq()" class="btn btn-secondary" method="get">게시글 목록</button>-->
+                    <!--        <button type="submit" th:formaction="@{/board/paging}" method="get" class="btn btn-secondary">게시글 목록</button>-->
+                    <button th:formaction="@{/board/paging}" method="get" class="btn btn-secondary">게시글 목록</button>
+                    <button xmlns:sec="http://www.thymeleaf.org/extras/spring-security" onclick="saveReq()" class="btn btn-secondary">게시글 작성</button>
+                </div>
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+
+            </form>
+        </div>
+
+
+    </div>
+    </body>
+    <script>
+        const listReq = () => {
+            location.href = "/board/paging";
+        }
+
+    </script>
+</div>
+</html>

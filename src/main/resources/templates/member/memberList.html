@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <h2 style="text-align: center; margin-bottom: 20px;">회원 목록</h2>
+    <div id="paging" style="width: 1120px; margin-left: 180px;">
+        <table class="table" style="margin: 0 auto;">
+            <tr>
+                <th>id</th>
+                <th>memberEmail</th>
+                <th>memberName</th>
+                <th>삭제</th>
+            </tr>
+            <tr th:each="member: ${memberList}">
+                <td th:text="${member.mid}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.name}"></td>
+                <td>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/admin/members/delete/${member.mid}|}">삭제</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</div>
+</html>

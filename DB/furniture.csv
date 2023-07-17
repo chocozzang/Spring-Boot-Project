@@ -1,0 +1,25 @@
+furniture_id,file_url,furniture_height,furniture_length,furniture_name,furniture_price,furniture_stock,furniture_type,furniture_width,hits
+1,/furniture/images/옷장1-1.png,100,100,베이직 옷장,100000,100,CLOSET,120,1
+2,/furniture/images/옷장2-1.png,200,200,미닫이 대나무 옷장,150000,200,CLOSET,80,5
+3,/furniture/images/옷장3-1.png,300,300,거울형 베이직 옷장,120000,150,CLOSET,240,6
+4,/furniture/images/옷장4-1.png,200,200,미닫이 행거형 옷장,150000,250,CLOSET,200,2
+5,/furniture/images/옷장5-1.png,100,100,유아용 미닫이 수납 및 행거형 옷,150000,100,CLOSET,150,3
+6,/furniture/images/옷장6-1.png,150,150,붙박이 서랍형 및 행거형 옷장,160000,300,CLOSET,300,5
+7,/furniture/images/옷장7-1.png,350,350,서랍형 나무 수납 옷장 ,170000,250,CLOSET,120,31
+8,/furniture/images/옷장8-1.png,250,250,베이직 행거 및 수납 옷장,180000,150,CLOSET,160,5
+9,/furniture/images/침대2-1.png,100,100,베이직 싱글 침대,190000,300,BED,200,6
+10,/furniture/images/침대3-1.png,200,200,LED 수납형 침대 ,750000,100,BED,80,3
+11,/furniture/images/침대4-1.png,300,300,접이식 데스크 수납형 침대,210000,200,BED,150,5
+12,/furniture/images/침대5-1.png,200,200,오픈 소파형 쿠션 침대,220000,300,BED,300,1
+13,/furniture/images/침대6-1.png,100,100,적층식 침대,230000,100,BED,200,3
+14,/furniture/images/침대7-1.png,150,150,계단형 벙커 나무 침대,240000,400,BED,100,6
+15,/furniture/images/침대8-1.png,350,350,수납형 침대,250000,500,BED,150,3
+16,/furniture/images/침대9-1.png,250,250,쿠션형 철제 침대프레임,260000,300,BED,130,8
+17,/furniture/images/테이블1-1.png,100,200,베이직 4인용 나무 테이블,150000,250,TABLE,200,1
+18,/furniture/images/테이블2-1.png,300,300,베이직 나무 철제 테이블,200000,300,TABLE,100,4
+19,/furniture/images/테이블3-1.png,250,100,라운드형 나무 테이블,300000,150,TABLE,350,5
+20,/furniture/images/테이블5-1.png,150,150,협탁형 나무 테이블,240000,400,TABLE,200,16
+21,/furniture/images/테이블6-1.png,200,100,확장형 테이블,125000,100,TABLE,230,3
+22,/furniture/images/테이블7-1.png,100,300,사무용 나무 테이블,360000,50,TABLE,400,6
+23,/furniture/images/테이블8-1.png,300,250,다인용 나무 기본테이블,630000,250,TABLE,80,23
+24,/furniture/images/테이블9-1.png,250,80,2인용 협탁형 나무 테이블,250000,300,TABLE,100,1

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Team #1 - Furniture For Single-Person Households</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords"
+          content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <style>
+
+        #magnifying-glass {
+            font-size: 3em;
+            display: inline-block;
+            width: 0.4em;
+            box-sizing: content-box;
+            height: 0.4em;
+            border: 0.1em solid dimgray;
+            position: relative;
+            border-radius: 0.35em;
+            top: -0.2em;
+        }
+
+        #magnifying-glass:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            right: -0.3em;
+            bottom: -0.2em;
+            border-width: 0;
+            background: dimgray;
+            width: 0.35em;
+            height: 0.08em;
+            transform: rotate(45deg);
+        }
+
+        #magnifying-glass:hover {
+            transform: scale(1.5, 1.5);
+        }
+
+        .product-list {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .product {
+            display: block;
+            width: 300px;
+            height: 330px;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            float: left;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 30px;
+        }
+
+        .product-name, .product-price {
+            margin-top: 5px;
+            margin-bottom: 4px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .imgstyle {
+            height: 300px;
+            width: 300px;
+        }
+
+        #nowPage {
+            background-color: lightgray;
+        }
+
+        #bt {
+
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<div layout:fragment="content" class="container">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <section class="bg-white py-8">
+        <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+                <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+                    <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
+                       href="#">
+                        Community
+
+                    </a>
+
+                    <!--서치아이콘-->
+                    <div class="flex items-center" id="store-nav-content">
+                        <form action="/board/search" method="Get">
+                            <div class="search">
+                                <input name="keyword" type="text" placeholder="search board title">
+                                <button id="magnifying-glass"></button>
+                            </div>
+                        </form>
+                        <!--  검색결과-->
+                    </div>
+                </div>
+            </nav>
+
+            <input type="hidden" th:value="${boardSearchTitle}">
+            <div th:if="${not #strings.isEmpty(boardSearchTitle)}" class="center">
+                <p class="h3 font-weight-bold" th:text="${boardSearchTitle} + ' 검색결과'"></p>
+            </div>
+
+            <div class="product-list">
+                <th:block th:each="board : ${boardList}">
+                    <a th:href="@{/board/(bid=${board.bid})}" class="product">
+                        <img th:if="${board.fileAttached} == 1" th:src="@{${board.fileUrl}}" alt="filenotfound"
+                             class="imgstyle">
+                        <img th:unless="${board.fileAttached} == 1" th:src="@{/images/noimg.jpg}"
+                             alt="filenotfound" class="imgstyle">
+                        <div class="product-price"><span></span>[[${board.boardTitle}]]</div>
+                        <div class="product-price"><span>조회수 : </span>[[${board.boardHits}]]</div>
+                    </a>
+                </th:block>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+    <div class="paging" style="margin-bottom: 30px;">
+        <span th:each="paging:${#numbers.sequence(start_page, end_page)}">
+            <a th:if="${paging != now_page}" th:href="@{/board/paging(page=${paging})}"
+               th:text="${paging}"></a>
+            <strong th:if="${paging == now_page}" th:text="${paging}" style="color:brown"></strong>
+        </span>
+
+    </div>
+    <div class="paging" style="margin-bottom: 30px;">
+        <button sec:authorize="isAuthenticated()" id="bt" onclick="saveReq()" class="btn btn-secondary">게시글 작성</button>
+        <br>
+    </div>
+    </body>
+    <script>
+        const saveReq = () => {
+            location.href = "/board/save";
+        }
+
+    </script>
+</div>
+</html>

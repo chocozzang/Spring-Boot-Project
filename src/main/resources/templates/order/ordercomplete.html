@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<div th:replace="fragments/configHeader"/>-->
+<body>
+<!--<div th:replace="fragments/head"/>-->
+
+<div class="container">
+    <div class="titleContainer">
+        <h2>주문완료</h2>
+    </div>
+
+    <div class="component">
+        <div class="messageContainer">
+            <div class="completeMessageContainer">
+                <span>주문이 완료</span>
+                <span>되었습니다. 감사합니다!</span>
+            </div>
+            <!--            <div class="completeOrderInfoContainer">-->
+<!--                <div class="orderIdContainer">-->
+<!--                    <span>주문번호</span>-->
+<!--                    <a th:href="@{/my/orders/{orderId}(orderId=${orderId})}">-->
+<!--                        <span th:text="${orderId}"></span>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="continueShoppingBtnContainer">
+
+                <button type="button"  th:onclick="|location.href='@{/..../mainpage}'|">메인으로</button>
+                <button type="button"  th:onclick="|location.href='@{/review/reviewpage}'|">리뷰쓰기</button>
+
+
+<!--                <a th:href="@{/mainpage}">-->
+<!--                    <button id="continueShoppingBtn">계속 쇼핑하기</button>-->
+<!--                </a>-->
+<!--                <a th:href="@{/review/reviewpage}">-->
+<!--                    <button id="reviewBtn">기다림 리뷰쓰기</button>-->
+<!--                </a>-->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .messageContainer div {
+        margin-top: 15px;
+    }
+
+    .completeMessageContainer {
+        font-size: 30px;
+    }
+
+    .completeOrderInfoContainer {
+        max-width: 40%;
+        min-width: 40%;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .completeOrderInfoContainer div {
+        margin-top: 0px;
+    }
+
+    #continueShoppingBtn {
+        margin-bottom: 15px;
+    }
+
+    .componentContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .messageContainer div {
+        margin-top: 15px;
+    }
+
+    .completeMessageContainer {
+        font-size: 30px;
+
+    }
+
+    .componentHeaderContainer {
+        margin-top: 30px;
+        display: flex;
+    }
+</style>

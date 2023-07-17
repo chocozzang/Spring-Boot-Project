@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+<body>
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <div class="container">
+        <div class="component">
+            <div class="messageContainer">
+                <div class="completeMessageContainer">
+                    <span style="color: #000000;  font-family: 'Work Sans', sans-serif;">주문이 완료</span>
+                    <span style="color: #000000;  font-family: 'Work Sans', sans-serif;">되었습니다. 감사합니다!</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="componentContainer">
+            <div class="componentHeaderContainer">
+                <div class="titleContainer">
+                    <h5>배송 정보</h5>
+                </div>
+
+            </div>
+            <div class="component">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th scope="row">이름</th>
+                        <td>
+                            <input type="text" name="name" th:value="${orderInfo.name}" readonly="readonly"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">배송주소</th>
+                        <td>
+                            <input type="text" name="address" th:value="${orderInfo.address}" readonly="readonly"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">연락처</th>
+                        <td>
+                            <input type="text" name="tel" th:value="${orderInfo.tel}" readonly="readonly"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">배송요청사항</th>
+                        <td>
+                            <input type="text" name="memo" th:value="${orderInfo.memo}" readonly="readonly"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="titleContainer">
+            <h2>리뷰작성</h2>
+        </div>
+        <form id="reviewForm" action="/review/register" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div>
+                <div class="reviewContainer">
+                    <div class="reviewBtnContainer" style="word-break:break-all;word-wrap:break-word;">
+                        <table style="width: 100%">
+                            <thead>
+                                <th  style="text-align: center; width: 30%;">상품 정보</th>
+                                <th  style="text-align: center; width: 70%;">리뷰</th>
+                            </thead>
+                            <tbody>
+                                <tr th:each="furniture : ${furnitureList}">
+                                    <input type="hidden" name="cf[]" th:value="${furniture.getFid()}">
+                                    <td  style="align-content: center; width: 30%;"><img th:src="${furniture.fileUrl}" style="height: 100px; height: 100px; margin: auto; display: block">
+                                        <p th:text="${furniture.furnitureName}" style="text-align: center;"></p></td>
+                                    <td  style=" text-align: center; width: 70%;">
+                                        <textarea type="text" id="reviewContent" name="reviewContent" placeholder="좋은 물건이네요~"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+<!--                        <th:block th:each="furniture : ${furnitureList}">-->
+<!--                            <div style="word-break:break-all;word-wrap:break-word;">-->
+
+<!--                                <input type="hidden" name="cf[]" th:value="${furniture.getFid()}">-->
+<!--                                <img th:src="${furniture.fileUrl}"-->
+<!--                                     style="width: 130px;height: 130px; margin: 10px; float: left; ">-->
+<!--                                <input type="text" name="furnitureName" th:value="${furniture.furnitureName}"-->
+<!--                                       style="width: 340px;height: 100px;" readonly/>-->
+
+<!--                            </div>-->
+
+<!--                            <div class="reviewContent" style="margin: 50px;float: left;">-->
+<!--                                <textarea type="text" id="reviewContent" name="reviewContent"-->
+<!--                                          placeholder="좋은 물건이네요~"></textarea>-->
+<!--                            </div>-->
+<!--                        </th:block>-->
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#reviewBtn').on('click', function (e) {
+                        let x = document.querySelectorAll("#reviewContent").length;
+                        e.preventDefault();
+                        let condition = true;
+                        for(let i = 0; i < x; i++) {
+                            if((document.querySelectorAll("#reviewContent")[i].value).length < 10) {
+                                alert((i + 1) + "번째 리뷰를 10자 이상 작성해주세요");
+                                condition = false;
+                                break;
+                            }
+                        }
+                        if(condition) {
+                            alert("리뷰를 작성했습니다!");
+                            $('#reviewForm').submit();
+                        }
+                    });
+                });
+            </script>
+            <div style="justify-content: center; text-align: center;">
+            <button id="reviewBtn" class="cart__bigorderbtn right" sec:authorize="isAuthenticated()">
+                작성완료
+            </button>
+            </div>
+        </form>
+    </div>
+    </body>
+</div>
+</div>
+</body>
+
+</html>
+
+<style>
+
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        border: 2px inset #dee2e6;
+        resize: none;
+    }
+
+   /* td {
+        padding: 15px 0px;
+    }
+
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }*/
+
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: end;
+    }
+
+    h2, h5 {
+        font-weight: bold;
+    }
+
+    .table {
+        margin-bottom: 0px;
+        border-right: none;
+        border-left: none;
+    }
+
+    .table th {
+        width: 15%;
+        background-color: #F4F4F4;
+        font-size: 12px;
+        padding: 10px;
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .table td {
+        font-size: 12px;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .componentContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+    .componentHeaderContainer {
+        margin-top: 30px;
+        display: flex;
+        align-content: end;
+    }
+
+    .headerTitle {
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .productHeaderContainer {
+        border-top: 1px solid black;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0px;
+    }
+
+    .furnitureContainer {
+        display: flex;
+        padding: 15px 0px;
+        flex-direction: row;
+    }
+
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .messageContainer div {
+        margin-top: 15px;
+    }
+
+    .completeMessageContainer {
+        font-size: 30px;
+        font-family: 'Work Sans', sans-serif;
+    }
+
+    .productImageContainer {
+        margin: 10px;
+        max-width: 100px;
+        max-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .productImageContainer img {
+        display: block;
+        width: 80%;
+        height: 80px;
+        margin: auto;
+
+    }
+    .cart__bigorderbtn.right {
+        background-color: #000000;
+        color: white;
+        border: none;
+    }
+    .cart__bigorderbtn {
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        margin-left: 110px;
+        border-radius: 5px;
+    }
+
+    .productInfoContainer {
+        margin-left: 15px;
+        max-height: 100px;
+        min-height: 100px;
+    }
+
+
+    /* 별점 */
+    .starRateContainer {
+        display: flex;
+        padding: 15px 0px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid #eee;
+    }
+
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+    }
+
+    .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+    }
+
+    .rate:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+
+    .rate:not(:checked) > label:before {
+        content: '★ ';
+    }
+
+    .rate > input:checked ~ label {
+        color: #ffc700;
+    }
+
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+    }
+
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+
+    .reviewContainer {
+        padding: 15px 0px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .reviewContents {
+        min-width: 50%;
+        max-width: 50%;
+        margin-left: 20px;
+    }
+
+    #review {
+        border: 2px inset #CECECE;
+        width: 50%;
+        height: 100px;
+    }
+
+    .reviewBtnContainer {
+        min-height: 100px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #reviewBtn {
+        margin-top: 30px;
+        margin-left: 0;
+
+    }
+
+</style>
+<!--
+<script>
+    $(function () {
+        let rating = null;
+        $(".star").click(function () {
+            rating = $(this).val();
+        });
+
+        $("#reviewBtn").click(function () {
+            let body = createBody();
+            validation(body);
+
+            $.ajax({
+                type: "POST",
+                url: "/reviews/review",
+                data: JSON.stringify(body),
+                success: function (data) {
+                    alert("리뷰 작성 완료 !");
+                    location.href = "/catalog";
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                },
+                contentType: "application/json"
+            });
+        });
+
+        // 리뷰 작성에 필요값 만들기
+        function createBody() {
+            let productId = $("#productId").text();
+            let productName = $("#productName").text();
+            let review = $("#review").val().trim();
+
+            return {
+                productId: productId,
+                productName: productName,
+                rating: rating,
+                review: reviewpage
+            };
+        }
+
+        function validation(body) {
+
+            if (body.review.length < 10)
+                throw alert("후기를 10글자 이상 입력해주세요.");
+        }
+    });
+</script>
+-->

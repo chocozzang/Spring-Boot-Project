@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project Team #1 - Furniture For Single-Person Households</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords"
+          content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+    <style>
+
+        #magnifying-glass {
+            font-size: 3em;
+            display: inline-block;
+            width: 0.4em;
+            box-sizing: content-box;
+            height: 0.4em;
+            border: 0.1em solid dimgray;
+            position: relative;
+            border-radius: 0.35em;
+            top: -0.2em;
+        }
+
+        #magnifying-glass:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            right: -0.3em;
+            bottom: -0.2em;
+            border-width: 0;
+            background: dimgray;
+            width: 0.35em;
+            height: 0.08em;
+            transform: rotate(45deg);
+        }
+
+        #magnifying-glass:hover {
+            transform: scale(1.5, 1.5);
+        }
+
+        .product-list{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .product{
+            display: block;
+            width: 300px;
+            height: 330px;
+            text-align: center;
+            text-decoration:none;
+            color: black;
+            float:left;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 30px;
+        }
+        .product-name, .product-price{
+            margin-top: 5px;
+            margin-bottom: 4px;
+            text-align: center;
+            font-size : 15px;
+            font-weight : bold;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .imgstyle {
+            height: 300px;
+            width: 300px;
+        }
+
+    </style>
+</head>
+
+<div layout:fragment="content" class="container">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <section class="bg-white py-8">
+        <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+                <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+
+                    <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
+                       href="#">
+                        Store
+                    </a>
+
+                    <!--서치아이콘-->
+                    <div class="flex items-center" id="store-nav-content">
+                        <form action="/furniture/list" method="get">
+                            <div class="row">
+                                <div class="css-1yhxgcl"><span class="_search_24 css-hkiqzb"></span>
+                                    <input type="text" value="" name="findwhat"
+                                           placeholder="search furniture type"
+                                           autocomplete="off"
+                                           aria-autocomplete="list"
+                                           class="css-1pneado ej5pc7c2">
+                                </div>
+                                <button id="magnifying-glass" type="submit"></button>
+                            </div>
+                        </form>
+                        <!--  검색결과-->
+                    </div>
+                </div>
+            </nav>
+
+            <input type="hidden" name="findwhat"
+                   th:value="${furnitureSearchDTO}">
+            <div th:if="${not #strings.isEmpty((furnitureSearchDTO))}" class="center">
+                <p class="h3 font-weight-bold" th:text="${furnitureSearchDTO} + ' 검색결과'"></p>
+            </div>
+
+            <div class="product-list">
+                <th:block th:each = "furniture : ${furniture_list}">
+                    <a th:href="@{/furniture/detail(fid=${furniture.fid}, page=${now_page})}" class="product">
+                        <img th:src="@{${furniture.fileUrl}}" alt="filenotfound" class="imgstyle">
+                        <div class="product-name">[[${furniture.furnitureName}]]</div>
+                        <div class="product-price"><span>&#8361;</span>[[${furniture.furniturePrice}]]</div>
+                    </a>
+                </th:block>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+
+    <div th:if="${not #strings.isEmpty(furnitureSearchDTO)}" class="paging" style="margin-bottom: 30px;">
+        <th:block th:each="paging:${#numbers.sequence(start_page, end_page)}">
+            <a th:if="${paging != now_page}" th:href="@{/furniture/list(page=${paging - 1}, findwhat=${furnitureSearchDTO})}"
+               th:text="${paging}"></a>
+            <strong th:if="${paging == now_page}" th:text="${paging}" style="color:brown"></strong>
+        </th:block>
+    </div>
+
+
+    <div th:unless="${not #strings.isEmpty(furnitureSearchDTO)}" class="paging" style="margin-bottom: 30px;">
+        <th:block th:each="paging:${#numbers.sequence(start_page, end_page)}">
+            <a th:if="${paging != now_page}" th:href="@{/furniture/list(page=${paging - 1})}"
+               th:text="${paging}"></a>
+            <strong th:if="${paging == now_page}" th:text="${paging}" style="color:brown"></strong>
+        </th:block>
+    </div>
+
+    </body>
+</div>
+</html>

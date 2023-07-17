@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/org"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #page {
+            text-align: center;
+        }
+
+        /*#paging {
+            padding-left: 80px;
+            padding-right: 80px;
+        }*/
+
+        .search {
+            float: right;
+            margin-bottom: 15px;
+        }
+
+        #bt {
+            float: right;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            border: none;
+        }
+
+        #magnifying-glass {
+            font-size: 3em;
+            display: inline-block;
+            width: 0.4em;
+            box-sizing: content-box;
+            height: 0.4em;
+            border: 0.1em solid dimgray;
+            position: relative;
+            border-radius: 0.35em;
+            top: -0.2em;
+        }
+
+        #magnifying-glass:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            right: -0.3em;
+            bottom: -0.2em;
+            border-width: 0;
+            background: dimgray;
+            width: 0.35em;
+            height: 0.08em;
+            transform: rotate(45deg);
+        }
+
+        #magnifying-glass:hover {
+            transform: scale(1.5, 1.5);
+        }
+
+        #nowPage {
+            background-color: lightgray;
+        }
+
+    </style>
+</head>
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <div class="container mx-auto bg-white py-8 border-t border-gray-400">
+
+        <form action="/board/search" method="Get">
+            <div class="search">
+                <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                <button id="magnifying-glass"></button>
+            </div>
+        </form>
+
+        <div id="paging">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">게시글 번호</th>
+                    <th scope="col">게시글 제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">조회 수</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr th:each="board: ${boardList}">
+                    <td th:text="${board.bid}"></td>
+                    <td><a th:href="@{|/board/${board.bid}|(page=${boardList.number + 1})}"
+                           th:text="${board.boardTitle}"></a></td>
+                    <td th:text="${board.boardWriter}"></td>
+                    <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${board.boardHits}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <div id="page">
+                <!-- 첫번째 페이지로 이동 -->
+                <!-- /board/paging?page=1 -->
+                <a th:href="@{/board/paging(page=1)}"><strong>First</strong></a>
+                <!-- 이전 링크 활성화 비활성화 -->
+                <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+                <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">prev</a>
+
+                <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                        for(int page=startPage; page<=endPage; page++)-->
+                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+    <!-- 현재페이지는 링크 없이 숫자만 -->
+        <strong id="nowPage" th:if="${page == boardList.number + 1}" th:text="${page}"></strong>
+                    <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+        <span th:unless="${page == boardList.number + 1}">
+            <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+        </span>
+    </span>
+
+                <!-- 다음 링크 활성화 비활성화
+                    사용자: 2페이지, getNumber: 1, 3페이지-->
+                <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">next</a>
+                <!-- 마지막 페이지로 이동 -->
+                <a th:href="@{/board/paging(page=${boardList.totalPages})}"><strong>Last</strong></a>
+                <br>
+                <br>
+            </div>
+            <button id="bt" onclick="saveReq()" class="btn btn-secondary">게시글 작성</button>
+            <br>
+        </div>
+    </div>
+    </body>
+    <script>
+        const saveReq = () => {
+            location.href = "/board/save";
+        }
+
+    </script>
+</div>
+
+</html>

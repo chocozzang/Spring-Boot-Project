@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Furniture Modfiy Admin Page</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords"
+          content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+
+</head>
+<!--&lt;!&ndash; 사용자 스크립트 추가 &ndash;&gt;-->
+<!--<th:block layout:fragment="script">-->
+<!--    <script th:inline="javascript">-->
+
+<!--        $(document).ready(function () {-->
+<!--            $("#searchBtn").on("click", function (e) {-->
+<!--                e.preventDefault();-->
+<!--                page(0);-->
+<!--            });-->
+<!--        });-->
+
+<!--        function page(page) {-->
+<!--            var searchBy = $("#searchBy").val();-->
+<!--            var searchQuery = $("#searchQuery").val();-->
+<!--            alert(searchBy);-->
+<!--            alert(searchQuery);-->
+<!--            location.href = "/admin/furniture/list" + page-->
+<!--                + "?searchBy=" + searchBy-->
+<!--                + "&searchQuery=" + searchQuery;-->
+<!--        }-->
+
+<!--    </script>-->
+<!--</th:block>-->
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        select {
+            margin-right: 10px;
+        }
+
+        .mybtn {
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+        }
+    </style>
+</th:block>
+
+
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <div class="container mx-auto bg-white py-8 border-t border-gray-400">
+        <form th:action="@{'/admin/furniture/list'}" role="form" method="get" th:object="${furnitures}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>상품아이디</td>
+                    <td>상품명</td>
+                    <!--        <td>상태</td>-->
+                    <!--        <td>등록자</td>-->
+                    <!--        <td>등록일</td>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="furn, status: ${furnitures.getContent()}">
+                    <td th:text="${furn.fid}"></td>
+                    <td>
+                        <a th:href="@{/admin/furniture/modify(fid = ${furn.fid}, page=${nowpage})}" th:text="${furn.furnitureName}"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="paging" style="margin-bottom: 30px;" th:if="${not #strings.isEmpty(furnitureSearchDTO.getSearchQuery())}">
+                <th:block th:each="paging:${#numbers.sequence(start_page, end_page)}">
+                    <a th:if="${paging != nowpage}"
+                       th:href="@{/admin/furniture/list(page = ${paging - 1}, searchBy = ${furnitureSearchDTO.getSearchBy()},
+                       searchQuery = ${furnitureSearchDTO.getSearchQuery()})}" th:text="${paging}"></a>
+                    <strong th:if="${paging == nowpage}" th:text="${paging}" style="color:brown; font-weight: bold"></strong>
+                </th:block>
+            </div>
+
+            <div class="paging" style="margin-bottom: 30px;" th:unless="${not #strings.isEmpty(furnitureSearchDTO.getSearchQuery())}">
+                <th:block th:each="paging:${#numbers.sequence(start_page, end_page)}">
+                    <a th:if="${paging != now_page}" th:href="@{/admin/furniture/list(page = ${paging - 1})}"
+                       th:text="${paging}"></a>
+                    <strong th:if="${paging == now_page}" th:text="${paging}" style="color:brown"></strong>
+                </th:block>
+            </div>
+
+            <br>
+            <div class="form-inline justify-content-center" th:object="${furnitureSearchDTO}">
+                <select id="searchBy" name="searchBy" th:field="*{searchBy}" class="form-control" style="width:auto;">
+                    <option value="furnitureName">상품명</option>
+                </select>
+                <input id="searchQuery" name="searchQuery" th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                <button id="searchBtn" type="submit" class="btn btn-secondary mybtn">검색</button>
+            </div>
+            <br>
+            <li class="nodot"><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                                 href="/admin/furniture/register">Register</a></li>
+        </form>
+    </div>
+    </body>
+</div>
+
+</html>

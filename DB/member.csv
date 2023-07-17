@@ -1,0 +1,9 @@
+member_id,address,birth,email,gender,name,pw,role,tel,zipcode
+1,부산광역시,2023-06-25,admin@modern.com,MALE,관리자,$2a$10$../8FpoN4NnPQLm1/t12WOVtIhGAEpGnDzt3h/5reDizHujG4TgLO,ADMIN,010-5365-2623,12450
+2,"부산광역시 부산진구",2023-06-27,wlsgh@modern.com,MALE,장진호,$2a$10$7ceH5y72CkG/uVXMyDeSG.WLgRDaopwooycGJ.5uYLa4G7EVABjwG,USER,010-5256-4644,10535
+3,"부산광역시 해운대구",2023-06-25,dmstjd@modern.com,MALE,정은성,$2a$10$gM9OgwNcSi.29ddc3KmiT.5GItgGgK0VhSYBrPE1Czy3RAonc8yJC,USER,010-3336-4362,10253
+4,"부산광역시 수영구",2023-06-25,cldnjs@modern.com,MALE,송치원,$2a$10$JSPIr.XTrbXEF7hS1Ok3A.8eDeI1BaUU6.irZgZa6.9dl9Uq6oaL6,USER,010-5555-2451,10536
+5,"부산광역시 금정구",2023-06-28,wldms@modern.com,FEMALE,백지은,$2a$10$u..NqJQjVTlpjDbM/.aA/eKgwbPaJOpV8ZAD/9eVhVb2cdjwc/VOa,USER,010-6335-2151,01523
+6,"부산광역시 부산진구",2023-06-30,rjsgml@modern.com,MALE,이건희,$2a$10$HGnBvsZYDpfjp.jfywjsvOrIVrh8JKmuSXZyg.Qw8AOV7xo1o2GQ6,USER,010-3564-2222,02251
+7,"부산광역시 해운대구",2023-06-30,ehdus@modern.com,FEMALE,김도연,$2a$10$OF7Gms5zdf4Fmkb7mXC.l.GQHMlmZEk88W48f3b2.afAmWK/3lZ7i,USER,010-5553-2345,05531
+9,"부산광역시 해운대구",2023-03-28,tester@modern.com,MALE,테스터,$2a$10$bf6wW1Pc0z/iD2VAlsRn0uFFM1l0GM9GlcbQz57qx6atz5V3rwL5i,USER,010-3335-2253,539251

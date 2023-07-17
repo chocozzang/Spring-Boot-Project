@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <form action="/order/ordercomplete" method="post">
+        <div class="container">
+
+            <div class="titleContainer">
+                <h2>주문/결제</h2>
+            </div>
+
+            <!-- 주문자 정보 -->
+            <div class="componentContainer">
+                <div class="componentHeaderContainer">
+                    <h5>구매자정보</h5>
+                </div>
+                <div class="component">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th scope="row">이름</th>
+                            <td th:text="${Member.name}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">연락처</th>
+                            <td th:text="${Member.tel}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 받는 사람 정보 -->
+            <div class="componentContainer">
+                <div class="componentHeaderContainer">
+                    <h5>받는사람정보</h5>
+                </div>
+                <div class="component">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th scope="row">이름</th>
+                            <td>
+                                <input type="text" name="name" value=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">배송주소</th>
+                            <td>
+                                <input type="text" name="address" value=""/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">연락처</th>
+                            <td>
+                                <input type="text" name="tel" value=""/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">배송요청사항</th>
+                            <td>
+                                <input type="text" name="memo" value=""/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 주문상품 정보 -->
+            <div class="componentContainer">
+                <div class="componentHeaderContainer">
+                    <h5>주문상품정보</h5>
+                </div>
+                <div class="component">
+                    <table class="table">
+                        <tbody>
+                        <tr class="orderItemListTr" th:each="cart_furniture : ${cart_furnitures}">
+                            <td class="itemIdTd" style="display: none;" th:text="${cart_furniture.cfid}"></td>
+                            <td style="max-width: 500px; min-width: 450px; padding-left: 15px;"
+                                th:text="${cart_furniture.furnitureName}"></td>
+                            <td class="orderCountTd" style="max-width: 50px; min-width: 50px;"
+                                th:text="${cart_furniture.furniturePrice}"></td>
+                            <td class="orderCountTd" style="max-width: 50px; min-width: 50px;"
+                                th:text="${cart_furniture.furnitureAmount}"></td>
+                            <td class="orderCountTd" style="max-width: 50px; min-width: 50px;"
+                                th:text="${cart_furniture.furnitureSubtotal}"></td>
+                            <!--                    <td style="max-width: 100px; min-width: 100px;" th:text="${#numbers.formatInteger(item.totalAmount, 3, 'COMMA')} +-->
+                            <!--                                                                                '(' + ${#numbers.formatInteger(item.price, 3, 'COMMA')} + ')'"></td>-->
+                        </tr>
+                        <tr>
+                            <td th:text="합계" class="itemIdTd"></td>
+                            <td colspan="3" style="position:relative; padding-right:45px; text-align: right;"
+                                th:text="${total_money} + '원'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--    &lt;!&ndash; 결제 &ndash;&gt;-->
+            <!--    <div class="componentContainer">-->
+            <!--        <div class="componentHeaderContainer">-->
+            <!--            <h5>결제정보</h5>-->
+            <!--        </div>-->
+            <!--        <div class="component">-->
+            <!--            <table class="table table-bordered">-->
+            <!--                <tbody>-->
+            <!--                <tr>-->
+            <!--                    <th scope="row">총상품가격</th>-->
+            <!--                    <td th:text="${#numbers.formatInteger(orderSummary.totalAmount, 3, 'COMMA')} + ' 원'"></td>-->
+            <!--                </tr>-->
+            <!--                <tr>-->
+            <!--                    <th scope="row">배송비</th>-->
+            <!--                    <td>2,500 원</td>-->
+            <!--                </tr>-->
+            <!--                <tr>-->
+            <!--                    <th scope="row">총결제금액</th>-->
+            <!--                    <td th:text="${#numbers.formatInteger(orderSummary.totalAmount + 2500, 3, 'COMMA')} + ' 원'"></td>-->
+            <!--                </tr>-->
+
+            <!--                </tbody>-->
+            <!--            </table>-->
+            <!--        </div>-->
+            <!--    </div>-->
+
+            <!--    <div class="payButtonContainer">-->
+            <!--        <button th:href="@{ordercomplete.html}" id="payCompleteBtn" >결제하기</button>-->
+            <!--    </div>-->
+            <br><br>
+            <div class="cart__mainbtns " style="text-align: right; padding-right:45px;">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                <th:block th:each="cfid : ${cfids}">
+                    <input type="hidden" name="cfids[]" th:value="${cfid}">
+                </th:block>
+                <!--        <input type="hidden" th:formaction="#{'/cart/delete/' + ${cartfurniture.cid}}"><span aria-hidden="true">X</span></input>-->
+                <input type="submit" value="결제하기" class="cart__bigorderbtn right">
+                <!--        <input type="hidden">-->
+            </div>
+        </div>
+    </form>
+    </body>
+</div>
+</html>
+
+
+<style>
+    .titleContainer {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+    }
+
+    h2, h5 {
+        font-weight: bold;
+    }
+
+    .table {
+        margin-bottom: 0px;
+        border-right: none;
+        border-left: none;
+    }
+
+    .table th {
+        width: 15%;
+        background-color: #F4F4F4;
+        font-size: 12px;
+        padding: 10px;
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .table td {
+        font-size: 12px;
+        padding: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .componentContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+
+    .component {
+        border-top: 2px solid #CECECE;
+        border-bottom: 1px solid #CECECE;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .messageContainer div {
+        margin-top: 15px;
+    }
+
+    .completeMessageContainer {
+        font-size: 30px;
+    }
+
+    .componentHeaderContainer {
+        margin-top: 30px;
+        display: flex;
+    }
+
+    .payButtonContainer {
+        display: block;
+        justify-content: center;
+        width: 420px;
+        height: 200px;
+        padding-top: 40px;
+        margin: auto;
+    }
+
+    .cart__mainbtns {
+
+        width: 420px;
+        height: 200px;
+        padding-top: 40px;
+        display: block;
+        margin-left: 270px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cart__bigorderbtn {
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        margin-left: 90px;
+        border-radius: 5px;
+    }
+
+    .cart__bigorderbtn.right {
+        background-color: #000000;
+        color: white;
+        border: none;
+    }
+
+    /* .payBtn {
+         width: 30%;
+         height: 7vh;
+         border-radius: 5px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background-color: #000000;
+         color: white;
+         font-size: 20px;
+         font-weight: bold;
+         margin-bottom: 5vh;
+     }
+
+     .payBtn:hover {
+         cursor: pointer;
+     }*/
+
+</style>
+
+<script>
+    $(function () {
+        // 주문 요청 폼생성 ====================
+        // 선택된 input dom을 만들어 반환
+        function getCartInputList() {
+            let trList = $(".orderItemListTr");
+            let orderLineInputList = "";
+
+            // 테이블의 형태에 따라서 시작 인덱스(i)의 값이 유동적
+            for (let i = 0; i < trList.length; i++) {
+                let itemId = $(trList[i]).find(".itemIdTd").text();
+                let orderCount = $(trList[i]).find(".orderCountTd").text();
+                orderLineInputList += "<input type='text' name='orderLineList[" + i + "].itemId'  value='" + itemId + "'> ";
+                orderLineInputList += "<input type='text' value='" + orderCount + "' name='orderLineList[" + i + "].orderCount'> ";
+            }
+
+            return orderLineInputList;
+        }
+
+        // form 생성
+        $("#payBtn").on("click", function () {
+            let form = $("<form action='/orders/order' method='post'>" +
+                getCartInputList() +
+                "</form> ");
+            $("body").append(form);
+            form.submit();
+        });
+    });
+</script>

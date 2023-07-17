@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link th:href="@{/css/layout1.css}" rel="stylesheet">
+<!--  <link th:href="@{/css/board.css}" rel="stylesheet">-->
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+  <link rel="alternate" href="android-app://net.bucketplace/http/ohou.se/deep"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="https://assets.ohou.se/web/assets/bookmark_icon/favicon_57x57.png"/>
+  <link rel="apple-touch-icon" sizes="72x72" href="https://assets.ohou.se/web/assets/bookmark_icon/favicon_72x72.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="https://assets.ohou.se/web/assets/bookmark_icon/favicon_114x114.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="https://assets.ohou.se/web/assets/bookmark_icon/favicon_144x144.png"/>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&display=swap&subset=korean" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+<!--  <link rel="shortcut icon" href="/furniture/images/cart.png"/>-->
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/238-0436adc3.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/8-474c9f0c.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/9-57660b1e.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/53-0951e342.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/61-56c00531.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/164-cdf881d8.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/6-cb4aecec.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/10-c0cd5c94.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/11-be34fdde.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/12-ac9f54c8.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/13-70cf3ee0.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/39-8582a4bf.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/44-455aca93.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/69-4fc62fd7.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/89-6ca42bd8.chunk.css">
+  <link rel="stylesheet" href="https://assets.ohou.se/web/dist/css/162-15c382f0.chunk.css">
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+  <script src="https://assets.ohou.se/web/dist/js/280-db68d52528b6d10a084d.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/202-ecdacb077de2762814f2.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/vendor-db200005b2bfd8d2b922.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/238-7fe28369127af37993f4.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/preamble-e68792412f964133ce2c.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/0-d4dff1dab339d20ba018.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/1-066613e02b57e5dcbddf.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/3-5108de81fac8294fbabb.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/4-baf627b9076cf58864ee.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/6-03363988cd5681bd08a8.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/10-ac1f7f5bd92ddf9347cb.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/11-fe2402b3dd90ebdd1524.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/12-4c0c8af140e1b3425400.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/13-058cd45fe7601e0d5469.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/29-765c96601a2d53a75710.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/39-c2d82700564ca9ef42bc.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/44-8cc14eceadb63a096d32.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/63-c9a482e2111047fd9a90.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/69-0bc0328a5bd0b7dbbdff.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/89-859e5695daa37aae5889.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/162-e1037568c371d4ac1f28.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/8-b90f1d0ae9b282208999.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/9-b1bd3516f5b1e87bb400.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/26-cf337c614a0e6eff8784.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/27-0997a549aba89bf3d77d.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/34-9494b95e787c74082771.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/31-4d3775683a0395f5a987.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/36-3b4158be080bc6250902.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/38-1ade03d0f57ada5902a7.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/42-5bcb3c6a9a0ba919ba8c.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/53-a2871ca83b282f1d0d1d.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/61-eeb0112cba1e3d8b182a.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/164-4a54b7474acecbbc67cb.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/App-aaa60f6e2290ea3577d3.chunk.js"></script>
+  <script src="https://assets.ohou.se/web/dist/js/runtime-15b467a19eaf1af52627.js"></script>
+
+  <th:block layout:fragment="script"></th:block>
+  <th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+
+  <div th:replace="fragments/headertemp::header"></div>
+
+  <div layout:fragment="content" class="content">
+
+  </div>
+
+  <div th:replace="fragments/footer::footer"></div>
+
+</body>
+</html>

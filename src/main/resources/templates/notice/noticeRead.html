@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>공지확인하기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .board-container {
+            width: 100%;
+            /*height: 1000px;*/
+            margin: 0 auto;
+            /* border: 1px solid black; */
+        }
+
+        .writing-header {
+            position: relative;
+            margin: 20px 0 0 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #323232;
+        }
+
+        input {
+            width: 100%;
+            height: 35px;
+            margin: 5px 0px 10px 0px;
+            border: 1px solid #e9e8e8;
+            padding: 8px;
+            background: #f8f8f8;
+            outline-color: #e6e6e6;
+        }
+
+        textarea {
+            width: 100%;
+            background: #f8f8f8;
+            margin: 5px 0px 10px 0px;
+            border: 1px solid #e9e8e8;
+            resize: none;
+            padding: 8px;
+            outline-color: #e6e6e6;
+        }
+
+        .frm {
+            width: 100%;
+        }
+
+        .btn {
+            background-color: rgb(236, 236, 236); /* Blue background */
+            border: none; /* Remove borders */
+            color: black; /* White text */
+            padding: 6px 12px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <section class="bg-white py-8">
+        <div style="text-align:center" class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+            <div class="board-container">
+                <h2 th:class="writing-header">공지사항</h2>
+                <form id="form" class="frm" action="" method="post">
+                    <tr>
+                        <input type="hidden" name="nid" th:value="${notice.nid}">
+                        <input name="title" type="text" th:value="${notice.noticeTitle}" readonly><br>
+                        <textarea name="content" rows="20" th:text="${notice.noticeContent}">content</textarea><br>
+                    </tr>
+                    <button type="button" id="modifyBtn" class="btn btn-modify" sec:authorize="hasRole('ROLE_ADMIN')"><i
+                            class="fa fa-edit"></i> 수정
+                    </button>
+                    <button type="button" id="removeBtn" class="btn btn-remove" sec:authorize="hasRole('ROLE_ADMIN')"><i
+                            class="fa fa-trash"></i> 삭제
+                    </button>
+                    <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </form>
+                <script>
+                    $("#removeBtn").on("click", function () {
+                        if (!confirm("삭제하시겠습니까?")) return;
+
+                        let form = $("#form");
+                        form.attr("action", "[[@{/notice/noticeRemove(nid=${notice.nid})}]]");
+                        form.attr("method", "post");
+                        form.submit();
+                    });
+
+                    $("#modifyBtn").on("click", function () {
+                        location.href = "[[@{/notice/noticeModify(nid=${notice.nid})}]]"
+                    });
+
+                    $("#listBtn").on("click", function () {
+                        location.href = "[[@{/notice/noticeList}]]";
+                    });
+                </script>
+            </div>
+        </div>
+    </section>
+    </body>
+</div>
+</html>

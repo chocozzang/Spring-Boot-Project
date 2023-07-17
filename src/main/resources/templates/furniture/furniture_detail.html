@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Furniture Detail Page</title>
+    <meta name="description" content="Free open source Tailwind CSS Store template">
+    <meta name="keywords"
+          content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
+    <meta name="csrf-param" content="authenticity_token"/>
+    <meta name="csrf-token"
+          content="Zt6XLxPe+WSTT4NqRqbzaGpkwtHqfEeH0XxVCky/zzOpsz2hH/bclaDEFc0bOPRnRG63bzgNYxOtj8JLtfsSFg=="/>
+</head>
+
+
+<div layout:fragment="content">
+    <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+    <script th:inline="javascript">
+
+        $(document).ready(function () {
+            var errorMessage = [[${errormessage}]];
+            if (errorMessage != null) {
+                alert(errorMessage);
+
+                var cgstock = [[${cgStock}]];
+                document.getElementById("stocks").value = cgstock;
+            }
+        })
+
+        function change_img(which_one) {
+            var imglist = [[${imgs}]];
+            if (which_one <= [[${num_of_imgs}]]) {
+                document.getElementById("bigimg").src = imglist[which_one - 1];
+            } else {
+                document.getElementById("bigimg").src = imglist[0];
+            }
+        };
+    </script>
+    <style data-emotion="css y1gt6f">.css-y1gt6f {
+        margin-top: 40px;
+    }</style>
+
+    <style data-emotion="css 49v6aj">.css-49v6aj {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        margin-top: 16px;
+        color: #2F3438;
+        font-weight: 700;
+        margin-top: 40px;
+    }
+    </style>
+
+    <style data-emotion="css 7c0zb9">.css-7c0zb9 {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    </style>
+    <style data-emotion="css q02jxk">.css-q02jxk {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    @media (max-width: 1023px) {
+        .css-q02jxk {
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+    </style>
+    <style>
+        .txt-cen {text-align: center;}
+    </style>
+    <div class="production-selling">
+        <div class="production-selling-overview container">
+            <div class="production-selling-overview__container row">
+                <div class="production-selling-overview__cover-image-wrap col-12 col-md-6 col-lg-7">
+                    <div class="production-selling-cover-image-container">
+                        <div class="carousel production-selling-cover-image production-selling-overview__cover-image"
+                             role="region"
+                             aria-roledescription="carousel">
+                            <div class="carousel__list-wrap production-selling-cover-image__carousel-wrap">
+                                <div class="carousel__list" aria-live="polite">
+                                    <div class="carousel__list__entry production-selling-cover-image__entry"
+                                         style="width:100%;" role="group" aria-roledescription="slide">
+                                        <img id="bigimg" class="production-selling-cover-image__entry__image"
+                                             style="width: 100%; height: 100%" th:src="@{${imgs.get(0)}}" tabindex="0"
+                                             alt="상품의 대표 이미지"/>
+                                        <div class="production-selling-cover-image__timer--pc"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="production-selling-cover-image__list">
+                                <li class="production-selling-cover-image__list__item">
+                                    <button class="production-selling-cover-image__list__btn production-selling-cover-image__list__btn" style="border: 2px solid #757575;"
+                                            type="button" aria-label="5개 중 1번째 항목" onclick="change_img(1)">
+                                        <img th:if="${1 <= num_of_imgs}" class="image" th:src="@{${imgs.get(0)}}" />
+                                        <img th:unless="${1 <= num_of_imgs}" class="image" display="hidden">
+                                    </button>
+                                </li>
+                                <li class="production-selling-cover-image__list__item">
+                                    <button class="production-selling-cover-image__list__btn production-selling-cover-image__list__btn" style="border: 2px solid #757575;"
+                                            type="button" aria-label="5개 중 2번째 항목" onclick="change_img(2)">
+                                        <img th:if="${2 <= num_of_imgs}" class="image" th:src="@{${imgs.get(1)}}"/>
+                                        <img th:unless="${2 <= num_of_imgs}" class="image" display="hidden">
+                                    </button>
+                                </li>
+                                <li class="production-selling-cover-image__list__item">
+                                    <button class="production-selling-cover-image__list__btn production-selling-cover-image__list__btn" style="border: 2px solid #757575;"
+                                            type="button" aria-label="5개 중 3번째 항목" onclick="change_img(3)">
+                                        <img th:if="${3 <= num_of_imgs}" class="image" th:src="@{${imgs.get(2)}}"/>
+                                        <img th:unless="${3 <= num_of_imgs}" class="image" display="hidden">
+                                    </button>
+                                </li>
+                                <li class="production-selling-cover-image__list__item">
+                                    <button class="production-selling-cover-image__list__btn production-selling-cover-image__list__btn" style="border: 2px solid #757575;"
+                                            type="button" aria-label="5개 중 4번째 항목" onclick="change_img(4)">
+                                        <img th:if="${4 <= num_of_imgs}" class="image" th:src="@{${imgs.get(3)}}"/>
+                                        <img th:unless="${4 <= num_of_imgs}" class="image" display="hidden">
+                                    </button>
+                                </li>
+                                <li class="production-selling-cover-image__list__item">
+                                    <button class="production-selling-cover-image__list__btn production-selling-cover-image__list__btn" style="border: 2px solid #757575;"
+                                            type="button" aria-label="5개 중 5번째 항목" onclick="change_img(5)">
+                                        <img th:if="${5 <= num_of_imgs}" class="image" th:src="@{${imgs.get(4)}}"/>
+                                        <img th:unless="${5 <= num_of_imgs}" class="image" display="hidden">
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="production-selling-cover-image__paginator">
+                                <ul class="carousel-paginator">
+                                    <li><span class="carousel-paginator__page selected" data-key="1"></span></li>
+                                    <li><span class="carousel-paginator__page" data-key="2"></span></li>
+                                    <li><span class="carousel-paginator__page" data-key="3"></span></li>
+                                    <li><span class="carousel-paginator__page" data-key="4"></span></li>
+                                    <li><span class="carousel-paginator__page" data-key="5"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="production-selling-cover-image__timer--mobile"></div>
+                    </div>
+                </div>
+                <div class="production-selling-overview__content col-12 col-md-6 col-lg-5">
+                    <div class="production-selling-header">
+                        <h1 class="production-selling-header__title">
+                            <div class="production-selling-header__title__name-wrap">
+                                <span class="production-selling-header__title__name"
+                                      th:text="${furniture.furnitureName}"></span>
+                                <div class="production-selling-header__action">
+                                    <svg class="icon--stroke" aria-label="스크랩" width="24" height="24"
+                                         fill="currentColor"
+                                         stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24"
+                                         preserveAspectRatio="xMidYMid meet">
+                                        <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
+                                    </svg>
+                                    <span class="count" th:text="${furniture.hits}"></span>
+                                </div>
+                            </div>
+                        </h1>
+                        <div class="production-selling-header__content production-selling-header__content--deal">
+                            <p class="production-selling-header__review-wrap">
+                            <div class="production-selling-header__price">
+                  <span class="production-selling-header__price__price-wrap">
+                    <div class="production-selling-header__price__price-value-wrap">
+                      <div class="production-selling-header__price__price">
+                        <span class="number" th:text="${furniture.furniturePrice}"></span><span class="won">원</span>
+                      </div>
+                    </div>
+                  </span>
+                                <span>
+                    <div class="production-selling-header__info-wrap">
+                      <div>
+                        <span>가로 길이 : </span><span class="number"
+                                                   th:text="${furniture.furnitureWidth}"></span><span>mm</span>
+                      </div>
+                      <div>
+                        <span>세로 길이: </span><span class="number"
+                                                  th:text="${furniture.furnitureLength}"></span><span>mm</span>
+                      </div>
+                      <div>
+                        <span>높이 : </span><span class="number"
+                                                th:text="${furniture.furnitureHeight}"></span><span>mm</span>
+                      </div>
+                      <div>
+                        <span>남은 재고 수 : </span><span class="number"
+                                                     th:text="${furniture.furnitureStock}"></span><span>개</span>
+                      </div>
+                    </div>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="production-selling-option-form production-selling-overview__option-form">
+                        <form action="/cart/list" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                            <th:block layout:fragment="script">
+                                <script th:inline="javascript">
+                                    $(document).ready(function () {
+
+                                        calculTotalPrice();
+
+                                        $("#count").change(function () {
+                                            calculTotalPrice();
+                                        });
+                                    });
+
+                                    function calculTotalPrice() {
+                                        var count = $("#count").val();
+                                        var price = $("#price").val();
+                                        var totalPrice = count * price;
+                                        $("#totalPrice").html(totalPrice + '원');
+                                    }
+
+                                </script>
+                            </th:block>
+
+                            <div>
+                                <div class="h4 text-left">
+                                    <input type="hidden" th:value="${furniture.furniturePrice}" id="price" name="price">
+                                </div>
+                                <div class="input-group w-50">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">수량</span>
+                                    </div>
+                                    <select type="number" id="count" name="count" class="form-control">
+                                        <div th:each="num : ${#numbers.sequence(0, furniture.furnitureStock)}">
+                                            <option id="stocks" th:value="${numStat.count}">[[${numStat.count}]]
+                                            </option>
+                                        </div>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+                            <div class="text-right mgt-50">
+                                <h5>결제 금액</h5>
+                                <h3 name="totalPrice" , id="totalPrice" class="font-weight-bold"></h3>
+                            </div>
+                            <div class="production-selling-option-form__footer">
+                                <input type="hidden" name="fid" id="fid" th:value="${furniture.fid}">
+                                <button class="button button--color-blue button--size-55 button--shape-4" type="submit" style="background-color:#757575; border-color: #424242;">
+                                    장바구니
+                                </button>
+                                <button class="button button--color-blue button--size-55 button--shape-4" type="button" style="background-color:#757575; border-color: #424242;"
+                                th:onclick="|location.href = '@{/furniture/list(page=${pagenum - 1})}'|">
+                                    돌아가기
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="production-selling__card-gallery-wrap container">
+            <div class="production-selling-section production-selling-section--placeholder">
+                <div class="production-selling-section__header">
+                    <div class="production-selling-section__title"></div>
+                    <div class="production-selling-section__right"></div>
+                </div>
+                <div class="gallery-wrap"></div>
+            </div>
+        </div>
+        <div class="production-selling-navigation__border"></div>
+        <div class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+            <div class="sticky-container production-selling-navigation__wrap" style="width: 1300px;">
+                <div class="sticky-child production-selling-navigation" bis_skin_checked="1" style="margin-left: 180px;">
+                    <nav class="production-selling-navigation__content">
+                        <ol class="production-selling-navigation__list">
+                            <li><a class="production-selling-navigation__item">리뷰
+                                <span class="production-selling-navigation__item__count">[[${reviewsize}]]</span></a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="production-selling__detail-wrap container">
+                <div class="production-selling__detail row">
+                </div>
+            </div>
+            <div id="paging" style="width: 1120px; margin-left: 180px;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"  style="width: 560px;" class="txt-cen">리뷰 번호</th>
+                        <th scope="col" class="txt-cen">리뷰</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    <tr th:each="review: ${reviews}">
+                        <td th:text="${review.rid}" class="txt-cen"></td>
+                        <td th:text="${review.reviewContent}" class="txt-cen"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </body>
+</div>
+</html>
+
